@@ -45,10 +45,10 @@ else
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing AUR in archlinux...${endColour}"
     sleep 2
 
-    if [ ! -d "../home/$user/repos" ]; then
-        mkdir -p "../home/$user/repos"
+    if [ ! -d "~/Desktop/$user/repos" ]; then
+        mkdir -p "~/Desktop/$user/repos"
     else
-        cd ../home/$user/repos
+        cd ~/Desktop/$user/repos
         
         echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos${endColour}"
         sleep 1
