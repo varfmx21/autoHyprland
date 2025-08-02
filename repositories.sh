@@ -52,9 +52,8 @@ function repos() {
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos/blackarch${endColour}"
     sleep 1
     curl -O https://blackarch.org/strap.sh
-    chmod +x /home
-    sudo su
-    ./strap.sh
+    chmod +x ./strap.sh
+    sudo ./strap.sh
     echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}BlackArch repos installed in your Pacman${endColour}"
 }
 
@@ -70,10 +69,10 @@ else
     sleep 2
 
     if [ ! -d "/home/$user/Desktop/$user/repos" ]; then
-        echo -e "${purpleColour}[+]${endColour} ${grayColour}Doesn't exist ~/Desktop/$user/repos, creating...${endColour}"
+        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Doesn't exist ~/Desktop/$user/repos, creating...${endColour}"
         sleep 1
         mkdir -p "/home/$user/Desktop/$user/repos"
-        echo -e "${purpleColour}[+]${endColour} ${grayColour}Directory created${endColour}"
+        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Directory created${endColour}"
         sleep 1
         repos
     else
