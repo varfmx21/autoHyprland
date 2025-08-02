@@ -34,6 +34,28 @@ function banner() {
     sleep 0.1
 }
 
+function repos() {
+    cd ~/Desktop/$user/repos
+    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos${endColour}"
+    sleep 1
+    git clone https://aur.archlinux.org/paru-bin.git
+    cd paru-bin
+    makepkg -si
+    echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}AUR installed in your ArchLinux${endColour}"
+
+    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing BlackArch repos in Pacman...${endColour}"
+    cd ~/Desktop/$user/repos
+    mkdir blackarch
+    cd blackarch
+    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos/blackarch${endColour}"
+    sleep 1
+    curl -O https://blackarch.org/strap.sh
+    chmod +x strap.sh
+    sudo su
+    ./strap.sh
+    echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}BlackArch repos installed in your Pacman${endColour}"
+}
+
 #-----Main-----#
 if [ $user == "root" ]; then
     echo -e "\n\n${redColour}[!] Don´t run as root this script${endColour}"
@@ -47,25 +69,8 @@ else
 
     if [ ! -d "~/Desktop/$user/repos" ]; then
         mkdir -p "~/Desktop/$user/repos"
+        repos
     else
-        cd ~/Desktop/$user/repos
-        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos${endColour}"
-        sleep 1
-        git clone https://aur.archlinux.org/paru-bin.git
-        cd paru-bin
-        makepkg -si
-        echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}AUR installed in your ArchLinux${endColour}"
-
-        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing BlackArch repos in Pacman...${endColour}"
-        cd ~/Desktop/$user/repos
-        mkdir blackarch
-        cd blackarch
-        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos/blackarch${endColour}"
-        sleep 1
-        curl -O https://blackarch.org/strap.sh
-        chmod +x strap.sh
-        sudo su
-        ./strap.sh
-        echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}BlackArch repos installed in your Pacman${endColour}"
+        repos
     fi
 fi
