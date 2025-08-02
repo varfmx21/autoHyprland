@@ -14,7 +14,7 @@ grayColour="\e[0;37m\033[1m"
 
 #-----Variables-----#
 user=$(whoami)
-pathRepos="~/Desktop/$user/repos"
+pathRepos="$HOME/Desktop/$user/repos"
 
 #-----Functions-----#
 function ctrl_c() {
