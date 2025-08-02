@@ -64,7 +64,7 @@ function repos() {
 
 trap ctrl_c INT
 
-if [ $(command -v sudo) ]; then
+if [ ! $(command -v sudo) ]; then
     echo -e "\n\n${redColour}[!] You need to install sudo, makepkg, curl. Install it!${endColour}"
     echo -e "${redColour}[x] Quitiing...${endColour}"
     exit 1
