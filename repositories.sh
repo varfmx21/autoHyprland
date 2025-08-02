@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# Created by varfmx21
+
 #-----Colours-----#
 greenColour="\e[0;32m\033[1m"
 endColour="\033[0m\e[0m"
@@ -12,10 +14,11 @@ grayColour="\e[0;37m\033[1m"
 
 #-----Variables-----#
 user=$(whoami)
+pathRepos="~/Desktop/$user/repos"
 
 #-----Functions-----#
 function ctrl_c() {
-    echo -e "\n\n${redColour}[!] Quiting...${endColour}"
+    echo -e "\n\n${redColour}[!] Quitting...${endColour}"
     exit 1
 }
 
@@ -35,8 +38,8 @@ function banner() {
 }
 
 function repos() {
-    cd /home/$user/Desktop/$user/repos
-    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos${endColour}"
+    cd $pathRepos
+    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in $pathRepos${endColour}"
     sleep 1
     git clone https://aur.archlinux.org/paru-bin.git
     cd paru-bin
@@ -46,10 +49,10 @@ function repos() {
 
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing BlackArch repos in Pacman...${endColour}"
     sleep 2
-    cd /home/$user/Desktop/$user/repos
+    cd $pathRepos
     mkdir blackarch
     cd blackarch
-    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos/blackarch${endColour}"
+    echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in $pathRepos${endColour}"
     sleep 1
     curl -O https://blackarch.org/strap.sh
     chmod +x ./strap.sh
@@ -58,8 +61,11 @@ function repos() {
 }
 
 #-----Main-----#
-if [ $user == "root" ]; then
-    echo -e "\n\n${redColour}[!] Don´t run as root this script${endColour}"
+
+trap ctrl_c INT
+
+if [ $(command -v sudo) ]; then
+    echo -e "\n\n${redColour}[!] You need to install sudo, makepkg, curl. Install it!${endColour}"
     echo -e "${redColour}[x] Quitiing...${endColour}"
     exit 1
 else
@@ -68,10 +74,10 @@ else
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing AUR in archlinux...${endColour}"
     sleep 2
 
-    if [ ! -d "/home/$user/Desktop/$user/repos" ]; then
-        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Doesn't exist ~/Desktop/$user/repos, creating...${endColour}"
+    if [ ! -d $pathRepos ]; then
+        echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour} Directory $pathRepos does not exist, creating...${endColour}"
         sleep 1
-        mkdir -p "/home/$user/Desktop/$user/repos"
+        mkdir -p $pathRepos
         echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Directory created${endColour}"
         sleep 1
         repos
@@ -79,3 +85,5 @@ else
         repos
     fi
 fi
+
+echo -e "${yellowColour}Thanks for using!${endColour}"
