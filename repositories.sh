@@ -35,22 +35,24 @@ function banner() {
 }
 
 function repos() {
-    cd ~/Desktop/$user/repos
+    cd /home/$user/Desktop/$user/repos
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos${endColour}"
     sleep 1
     git clone https://aur.archlinux.org/paru-bin.git
     cd paru-bin
     makepkg -si
     echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}AUR installed in your ArchLinux${endColour}"
+    sleep 2
 
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing BlackArch repos in Pacman...${endColour}"
-    cd ~/Desktop/$user/repos
+    sleep 2
+    cd /home/$user/Desktop/$user/repos
     mkdir blackarch
     cd blackarch
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos/blackarch${endColour}"
     sleep 1
     curl -O https://blackarch.org/strap.sh
-    chmod +x strap.sh
+    chmod +x /home
     sudo su
     ./strap.sh
     echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}BlackArch repos installed in your Pacman${endColour}"
@@ -67,8 +69,12 @@ else
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing AUR in archlinux...${endColour}"
     sleep 2
 
-    if [ ! -d "~/Desktop/$user/repos" ]; then
-        mkdir -p "~/Desktop/$user/repos"
+    if [ ! -d "/home/$user/Desktop/$user/repos" ]; then
+        echo -e "${purpleColour}[+]${endColour} ${grayColour}Doesn't exist ~/Desktop/$user/repos, creating...${endColour}"
+        sleep 1
+        mkdir -p "/home/$user/Desktop/$user/repos"
+        echo -e "${purpleColour}[+]${endColour} ${grayColour}Directory created${endColour}"
+        sleep 1
         repos
     else
         repos
