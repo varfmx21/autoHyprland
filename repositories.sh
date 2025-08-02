@@ -57,7 +57,7 @@ else
         echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}AUR installed in your ArchLinux${endColour}"
 
         echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing BlackArch repos in Pacman...${endColour}"
-        cd cd ~/Desktop/$user/repos
+        cd ~/Desktop/$user/repos
         mkdir blackarch
         cd blackarch
         echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in ../home/$user/Desktop/$user/repos/blackarch${endColour}"
@@ -65,7 +65,7 @@ else
         curl -O https://blackarch.org/strap.sh
         chmod +x strap.sh
         sudo su
-        echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}BlackArch repos installed in your Pacman${endColour}"
         ./strap.sh
+        echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}BlackArch repos installed in your Pacman${endColour}"
     fi
 fi
