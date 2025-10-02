@@ -35,15 +35,12 @@ function banner() {
 
 #-----Main-----#
 if [ $user == "root" ]; then
-    echo -e "\n\n${redColour}[!] Don´t run as root this script${endColour}"
+    echo -e "\n${redColour}[!] Don´t run as root this script${endColour}"
     echo -e "${redColour}[x] Quitiing...${endColour}"
     exit 1
-else
-    banner
-    echo -e "\n\n${yellowColour}[?]${endColour} ${grayColour}Which Wallpaper you want to configure? (1/2)${endColour}"
-    read -p " ${grayClour}Option: ${endColour}" pathWallpaper
-    sleep 1
 
-    echo -e "\n${purpleColour}[+]${endColour} ${grayColour}Downloading packages...${endColour}"
-    sleep 2
-fi
+banner
+echo -e "${greenColour}[+]${endColour} Your OS is: ${yellowColour}${os}${endColour}"
+echo -e "${greenColour}[+]${endColour} Selecting options for installing ${greenColour}autoPawnGu4rd${endColour} in the OS..."
+sleep 2
+echo -e "lol"
