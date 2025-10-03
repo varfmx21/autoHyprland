@@ -11,10 +11,9 @@ turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
 #-----Variables-----#
-user=$(whoami)
 os=$(cat /etc/os-release | sed -nE "s/^[[:space:]]*NAME[[:space:]]*=[[:space:]]*(['\"]?)(.*)\1[[:space:]]*$/\2/p" | awk '{print tolower($0)}' | tr -d ' ')
-font_dir="/usr/local/share/fonts"
-download_dir="$HOME/Downloads"
+usr=$(whoami)
+path=$(pwd)
 
 #-----Functions-----#
 function ctrl_c() {
@@ -44,27 +43,18 @@ if [ "$user" == "root" ]; then
 fi
 
 banner
+
+chmod +x "$path/arch-linux.sh"
+chmod +x "$path/debian.sh"
+
 echo -e "\n${greenColour}[+]${endColour} Selecting options for ${yellowColour}${os}...${endColour}"
 sleep 1
+echo -e "\n${greenColour}[+]${endColour} Accessing to user $usr and root for installation...."
+sleep 1
+echo -e "\n${greenColour}[+]${endColour} Starting installation..."
 
 if [ "$os" == "archlinux" ]; then
-
-    mkdir -p "$download_dir"
-    cd "$download_dir"
-
-    sudo pacman -S zsh 
-
-    # Hack Nerd Font
-    echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
-    curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip -o ./Hack.zip
-    if [ $? -eq 0 ]; then
-        sudo mkdir -p "$font_dir"
-        mv ./Hack.zip "$font_dir"
-        7z x "$font_dir/Hack.zip"
-        rm "$font_dir/Hack.zip"
-        echo -e "\n ${greenColour}[+]]${endColour} Hack Nerd Font installed successfully"
-    else
-        echo -e "\n ${redColour}[!]${endColour} Failed to download Hack Nerd Font"
-    fi
-
+    ./arch-linux.sh
+elif [ "$os" == "ubuntu" ] || [ "$os" == "parrotos" ] || [ "$os" == "kalilinux" ]; then
+    ./debian.sh
 fi
