@@ -11,11 +11,13 @@ turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
 #-----Variables-----#
-user=$(whoami)
+os=$(cat /etc/os-release | sed -nE "s/^[[:space:]]*NAME[[:space:]]*=[[:space:]]*(['\"]?)(.*)\1[[:space:]]*$/\2/p" | awk '{print tolower($0)}' | tr -d ' ')
+usr=$(whoami)
+path=$(pwd)
 
 #-----Functions-----#
 function ctrl_c() {
-    echo -e "\n\n${redColour}[!] Quiting...${endColour}"
+    echo -e "\n\n${redColour}[!] Quitting...${endColour}"
     exit 1
 }
 
@@ -34,13 +36,25 @@ function banner() {
 }
 
 #-----Main-----#
-if [ $user == "root" ]; then
-    echo -e "\n${redColour}[!] Don´t run as root this script${endColour}"
-    echo -e "${redColour}[x] Quitiing...${endColour}"
+if [ "$user" == "root" ]; then
+    echo -e "\n${redColour}[!] Don't run as root this script${endColour}"
+    echo -e "${redColour}[x] Quitting...${endColour}"
     exit 1
+fi
 
 banner
-echo -e "${greenColour}[+]${endColour} Your OS is: ${yellowColour}${os}${endColour}"
-echo -e "${greenColour}[+]${endColour} Selecting options for installing ${greenColour}autoPawnGu4rd${endColour} in the OS..."
-sleep 2
-echo -e "lol"
+
+chmod +x "$path/arch-linux.sh"
+chmod +x "$path/debian.sh"
+
+echo -e "\n${greenColour}[+]${endColour} Selecting options for ${yellowColour}${os}...${endColour}"
+sleep 1
+echo -e "\n${greenColour}[+]${endColour} Accessing to user $usr and root for installation...."
+sleep 1
+echo -e "\n${greenColour}[+]${endColour} Starting installation..."
+
+if [ "$os" == "archlinux" ]; then
+    ./arch-linux.sh
+elif [ "$os" == "ubuntu" ] || [ "$os" == "parrotos" ] || [ "$os" == "kalilinux" ]; then
+    ./debian.sh
+fi
