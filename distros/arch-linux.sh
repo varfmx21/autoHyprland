@@ -67,7 +67,7 @@ sudo ln -s -f /home/$user/.zshrc /root/.zshrc
 
 echo -e "\n${greenColour}[+]${endColour} Installing sudo zsh plugin..."
 sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo
-sudo curl -L  --progress-bar https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh -o /usr/share/zsh/plugins/zsh-sudo/
+sudo curl -L  --progress-bar https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh -o /usr/share/zsh/plugins/zsh-sudo/sudo.plugin.zsh
 if [ $? -eq 0 ]; then
     echo -e "\n ${greenColour}[+]${endColour} Sudo zsh plugin installed successfully"
 else
