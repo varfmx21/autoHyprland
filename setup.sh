@@ -12,7 +12,7 @@ grayColour="\e[0;37m\033[1m"
 
 #-----Variables-----#
 os=$(cat /etc/os-release | sed -nE "s/^[[:space:]]*NAME[[:space:]]*=[[:space:]]*(['\"]?)(.*)\1[[:space:]]*$/\2/p" | awk '{print tolower($0)}' | tr -d ' ')
-usr=$(whoami)
+user=$(whoami)
 path=$(pwd)
 
 #-----Functions-----#
@@ -22,17 +22,25 @@ function ctrl_c() {
 }
 
 function banner() {
-    echo -e "\n${purpleColour}                    __           ___ ___                      .__                     .___"
+    echo -e "\n${purpleColour} ▄▄▄       █    ██ ▄▄▄█████▓ ▒█████   ██░ ██▓██   ██▓ ██▓███   ██▀███   ██▓    ▄▄▄       ███▄    █ ▓█████▄ ";
     sleep 0.1
-    echo -e "     _____   __ ___/  |_  ____  /   |   \ ___.__._____________|  | _____    ____    __| _/"
+    echo -e "▒████▄     ██  ▓██▒▓  ██▒ ▓▒▒██▒  ██▒▓██░ ██▒▒██  ██▒▓██░  ██▒▓██ ▒ ██▒▓██▒   ▒████▄     ██ ▀█   █ ▒██▀ ██▌";
     sleep 0.1
-    echo -e "     \__  \ |  |  \   __\/  _ \/    ~    <   |  |\____ \_  __ \  | \__  \  /    \  / __ | "
+    echo -e "▒██  ▀█▄  ▓██  ▒██░▒ ▓██░ ▒░▒██░  ██▒▒██▀▀██░ ▒██ ██░▓██░ ██▓▒▓██ ░▄█ ▒▒██░   ▒██  ▀█▄  ▓██  ▀█ ██▒░██   █▌";
     sleep 0.1
-    echo -e "      / __ \|  |  /|  | (  <_> )    Y    /\___  ||  |_> >  | \/  |__/ __ \|   |  \/ /_/ | "
+    echo -e "░██▄▄▄▄██ ▓▓█  ░██░░ ▓██▓ ░ ▒██   ██░░▓█ ░██  ░ ▐██▓░▒██▄█▓▒ ▒▒██▀▀█▄  ▒██░   ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█▄   ▌";
     sleep 0.1
-    echo -e "     (____  /____/ |__|  \____/ \___|_  / / ____||   __/|__|  |____(____  /___|  /\____ | "
+    echo -e " ▓█   ▓██▒▒▒█████▓   ▒██▒ ░ ░ ████▓▒░░▓█▒░██▓ ░ ██▒▓░▒██▒ ░  ░░██▓ ▒██▒░██████▒▓█   ▓██▒▒██░   ▓██░░▒████▓ ";
     sleep 0.1
-    echo -e "          \/                          \/  \/     |__|                   \/     \/      \/ ${endColour} ${grayColour}By${endColour} ${turquoiseColour}varfmx21${endColour}"
+    echo -e " ▒▒   ▓▒█░░▒▓▒ ▒ ▒   ▒ ░░   ░ ▒░▒░▒░  ▒ ░░▒░▒  ██▒▒▒ ▒▓▒░ ░  ░░ ▒▓ ░▒▓░░ ▒░▓  ░▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒▓  ▒ ";
+    sleep 0.1
+    echo -e "  ▒   ▒▒ ░░░▒░ ░ ░     ░      ░ ▒ ▒░  ▒ ░▒░ ░▓██ ░▒░ ░▒ ░       ░▒ ░ ▒░░ ░ ▒  ░ ▒   ▒▒ ░░ ░░   ░ ▒░ ░ ▒  ▒ ";
+    sleep 0.1
+    echo -e "  ░   ▒    ░░░ ░ ░   ░      ░ ░ ░ ▒   ░  ░░ ░▒ ▒ ░░  ░░         ░░   ░   ░ ░    ░   ▒      ░   ░ ░  ░ ░  ░ ";
+    sleep 0.1
+    echo -e "      ░  ░   ░                  ░ ░   ░  ░  ░░ ░                 ░         ░  ░     ░  ░         ░    ░    ";
+    sleep 0.1
+    echo -e "                                             ░ ░                                                    ░      ${endColour} ${grayColour}By${endColour} ${turquoiseColour}varfmx21${endColour}";
 }
 
 #-----Main-----#
@@ -44,17 +52,27 @@ fi
 
 banner
 
-chmod +x "$path/arch-linux.sh"
-chmod +x "$path/debian.sh"
+chmod +x "$path/distros/arch-linux.sh"
+chmod +x "$path/distros/debian.sh"
 
-echo -e "\n${greenColour}[+]${endColour} Selecting options for ${yellowColour}${os}...${endColour}"
+echo -e "\n${greenColour}[+]${endColour} Selecting options for ${blueColour}${os}...${endColour}"
 sleep 1
-echo -e "\n${greenColour}[+]${endColour} Accessing to user $usr and root for installation...."
+echo -e "\n${greenColour}[+]${endColour} Accessing to user ${purpleColour}$user${endColour} and ${purpleColour}root${endColour} for installation...."
 sleep 1
+
+printf "\n${yellowColour}[!]${endColour} This requires a ${redColour}fresh Linux environment${endColour}. Are you sure to continue? (y/n): " 
+read option
+
+if [ "$option" == "n" ]; then
+    echo -e "\n${redColour}[x]${endColour} Quitting script, see you!"
+    exit 1
+fi
+
 echo -e "\n${greenColour}[+]${endColour} Starting installation..."
+sleep 1
 
 if [ "$os" == "archlinux" ]; then
-    ./arch-linux.sh
+    "$path/distros/arch-linux.sh"
 elif [ "$os" == "ubuntu" ] || [ "$os" == "parrotos" ] || [ "$os" == "kalilinux" ]; then
-    ./debian.sh
+    "$path/distros/debian.sh"
 fi
