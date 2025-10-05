@@ -20,16 +20,16 @@ sleep 1
 sudo pacman -Syu
 
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
-sudo pacman -S kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper
+sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
 sudo mkdir -p "/usr/local/share/fonts"
 cd /usr/local/share/fonts
-curl -L  --progress-bar https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip -o ./Hack.zip
+sudo curl -L  --progress-bar https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip -o ./Hack.zip
 if [ $? -eq 0 ]; then
-    7z x /usr/local/share/fonts/Hack.zip
-    rm /usr/local/share/fonts/Hack.zip
+    sudo 7z x ./Hack.zip
+    sudo rm ./Hack.zip ./LICENSE.md ./README.md
     echo -e "\n ${greenColour}[+]]${endColour} Hack Nerd Font installed successfully"
 else
     echo -e "\n ${redColour}[!]${endColour} Failed to download Hack Nerd Font"
