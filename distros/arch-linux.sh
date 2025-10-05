@@ -31,7 +31,7 @@ sudo curl -L  --progress-bar https://github.com/ryanoasis/nerd-fonts/releases/do
 if [ $? -eq 0 ]; then
     sudo 7z x ./Hack.zip
     sudo rm ./Hack.zip ./LICENSE.md ./README.md
-    echo -e "\n ${greenColour}[+]]${endColour} Hack Nerd Font installed successfully"
+    echo -e "\n ${greenColour}[+]${endColour} Hack Nerd Font installed successfully"
 else
     echo -e "\n ${redColour}[!]${endColour} Failed to download Hack Nerd Font"
 fi
@@ -46,31 +46,33 @@ cp "$path/config/kitty/color.ini" .
 echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for root..."
 sudo mkdir -p /root/.config/kitty
 sudo cp -r /home/$user/.config/kitty/* /root/.config/kitty/
-echo -e "\n ${greenColour}[+]]${endColour} Configuration installed successfully"
-sleep 20
+echo -e "\n ${greenColour}[+]${endColour} Configuration installed successfully"
 
 # ZSH
+echo -e "\n${greenColour}[+]${endColour} Configurating ZSH configuration..."
 sudo usermod --shell /usr/bin/zsh "$user"
 sudo usermod --shell /usr/bin/zsh root
 
-cd "$HOME"
-touch .zshrc
+cd ~/
+mkdir -p ~/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k/
+cp $path/config/zsh/.p10k.zsh ~/
+cp $path/config/zsh/.zshrc ~/
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-cp $path/config/zsh/.p10k.zsh $HOME
+sudo mkdir -p /root/powerlevel10k
+sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k/
+cp $path/config/zsh/.p10k.zsh1 /root/
+sudo mv /root/.p10k.zsh-root /root/.p10k.zsh
+sudo ln -s -f /home/$user/.zshrc /root/.zshrc
 
-sudo su
-cd /root
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-cp $path/config/zsh/.p10k.zsh1 /root
-mv /root/.p10k.zsh1 /root/.p10k.zsh
-ln -s -f /home/$user/.zshrc .zshrc
-exit
-
-cd /usr/share
-mkdir zsh-sudo
-cd zsh-sudo
-mv $path/config/zsh/sudo.plugin.zsh .
+echo -e "\n${greenColour}[+]${endColour} Installing sudo zsh plugin..."
+sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo
+sudo curl -L  --progress-bar https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/refs/heads/master/plugins/sudo/sudo.plugin.zsh -o /usr/share/zsh/plugins/zsh-sudo/
+if [ $? -eq 0 ]; then
+    echo -e "\n ${greenColour}[+]${endColour} Sudo zsh plugin installed successfully"
+else
+    echo -e "\n ${redColour}[!]${endColour} Failed to download sudo zsh plugin"
+fi
 
 # Funciones s4vitar
 mkdir -p ~/.config/bin
