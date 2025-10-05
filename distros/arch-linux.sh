@@ -44,8 +44,7 @@ cd ~/.config/kitty
 cp "$path/config/kitty/kitty.conf" .
 cp "$path/config/kitty/color.ini" .
 sudo mkdir -p /root/.config/kitty
-sudo cd /root/.config/kitty
-sudo cp "/home/$user/.config/kitty/*" .
+sudo cp "/home/$user/.config/kitty/*" /root/.config/kitty/
 echo -e "\n ${greenColour}[+]]${endColour} Configuration installed successfully"
 sleep 20
 
