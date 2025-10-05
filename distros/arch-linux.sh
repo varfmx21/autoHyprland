@@ -19,12 +19,12 @@ echo -e "\n${greenColour}[+]${endColour} First, we need to upgrade the system"
 sleep 1
 sudo pacman -Syu
 
-echo -e "[+] Instalando paquetes"
-sudo pacman -S kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock stow hyprpaper
+echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
+sudo pacman -S kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
-sudo mkpath -p "/usr/local/share/fonts"
+sudo mkdir -p "/usr/local/share/fonts"
 cd /usr/local/share/fonts
 curl -L  --progress-bar https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip -o ./Hack.zip
 if [ $? -eq 0 ]; then
@@ -35,6 +35,7 @@ else
     echo -e "\n ${redColour}[!]${endColour} Failed to download Hack Nerd Font"
 fi
 
+sleep 20
 # Kitty
 mkdir -p ~/.config/kitty
 cd ~/.config/kitty
