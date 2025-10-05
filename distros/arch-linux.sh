@@ -24,6 +24,7 @@ sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat ls
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
+sleep 1
 sudo mkdir -p "/usr/local/share/fonts"
 cd /usr/local/share/fonts
 sudo curl -L  --progress-bar https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hack.zip -o ./Hack.zip
@@ -35,16 +36,18 @@ else
     echo -e "\n ${redColour}[!]${endColour} Failed to download Hack Nerd Font"
 fi
 
-sleep 20
 # Kitty
+echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal..."
+sleep 1
 mkdir -p ~/.config/kitty
 cd ~/.config/kitty
 cp "$path/config/kitty/kitty.conf" .
 cp "$path/config/kitty/color.ini" .
-mkdir -p /root/.config/kitty
+sudo mkdir -p /root/.config/kitty
 sudo cd /root/.config/kitty
-cp "/home/$user/.config/kitty/*" .
-
+sudo cp "/home/$user/.config/kitty/*" .
+echo -e "\n ${greenColour}[+]]${endColour} Configuration installed successfully"
+sleep 20
 
 # ZSH
 sudo usermod --shell /usr/bin/zsh "$user"
