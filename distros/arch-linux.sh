@@ -37,14 +37,15 @@ else
 fi
 
 # Kitty
-echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal..."
+echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for $user..."
 sleep 1
 mkdir -p ~/.config/kitty
 cd ~/.config/kitty
 cp "$path/config/kitty/kitty.conf" .
 cp "$path/config/kitty/color.ini" .
+echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for root..."
 sudo mkdir -p /root/.config/kitty
-sudo cp "/home/$user/.config/kitty/*" /root/.config/kitty/
+sudo cp -r "/home/$user/.config/kitty/*" /root/.config/kitty/
 echo -e "\n ${greenColour}[+]]${endColour} Configuration installed successfully"
 sleep 20
 
