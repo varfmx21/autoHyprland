@@ -104,6 +104,7 @@ monitor=,preferred,auto,2     # 200% scale
 
 - 🎵 **Spotify** - Reproductor de música
 - 🌐 **Brave** - Navegador web privado
+- **VLC** - Reproductor multimedia
 
 ### 🔧 Herramientas de Sistema
 

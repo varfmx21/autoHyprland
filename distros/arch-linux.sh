@@ -32,10 +32,12 @@ sudo pacman -Syu --noconfirm
 # Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
 if [ $wallpaper_manager == 1 ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc
 elif [ $wallpaper_manager == 2 ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc
 fi
+
+paru -S --noconfirm brave-bin
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
@@ -121,6 +123,11 @@ mkdir -p ~/.config/waybar
 mkdir -p ~/.config/waybar/scripts
 cp -r $path/config/waybar/* ~/.config/waybar/
 cp -r $path/lib/* ~/.config/waybar/scripts/
+
+chmod +x ~/.config/waybar/scripts/ethernet_status.sh
+chmod +x ~/.config/waybar/scripts/showFastFetch.sh
+chmod +x ~/.config/waybar/scripts/lib/target_to_hack.sh
+chmod +x ~/.config/waybar/scripts/lib/target_to_hack.sh
 
 mkdir -p ~/.config/wofi
 cp -r $path/config/wofi/* ~/.config/wofi/
