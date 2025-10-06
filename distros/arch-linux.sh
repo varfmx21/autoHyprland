@@ -14,13 +14,33 @@ purpleColour="\e[0;35m\033[1m"
 turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
-#-----Main-----#
+# Options for system
+printf "\n${yellowColour}[¿?]${endColour} Which wallpaper manager do you choose? GIFs or static (swww=1, hyprpaper=2): " 
+read wallpaper_manager
+if [ "$wallpaper_manager" -eq "1" ]; then
+    printf "\n${yellowColour}[¿?]${endColour} Which wallpaper you choose? (1, 2): "
+    read wallpaper_file
+elif [ "$wallpaper_manager" -eq "2" ]; then
+    printf "\n${yellowColour}[¿?]${endColour} Which wallpaper you choose? (1, 2, 3): "
+    read wallpaper_file
+else
+    echo -e "\n${redColour}[x]${endColour} Press a valid option"
+    exit 1
+fi
+
+# System Upgrade
 echo -e "\n${greenColour}[+]${endColour} First, we need to upgrade the system"
 sleep 1
 sudo pacman -Syu
 
+# Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
-sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper
+if [ $wallpaper_manager == 1 ]; then
+    sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl
+elif [ $wallpaper_manager == 2 ]; then
+    sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl
+fi
+paru -Sy brave-bin
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
@@ -74,12 +94,45 @@ else
     echo -e "\n ${redColour}[!]${endColour} Failed to download sudo zsh plugin"
 fi
 
-# Funciones s4vitar
-mkdir -p ~/.config/bin
-cd ~/.config/bin
-touch target
+# Hyprland
+echo -e "\n${greenColour}[+]${endColour} Configurating hyprland..."
 
-# Hypr
+mkdir -p ~/.config/hypr
+cp -r $path/config/hypr/* ~/.config/hypr/
 
 mkdir -p ~/.config/backgrounds
-mv $path/wallpapers/* ~/.config/backgrounds
+cp $path/wallpapers/* ~/.config/backgrounds
+
+if [ "$wallpaper_manager" -eq "1" ]; then
+    if [ "$wallpaper_file" -eq "1" ]; then
+        sed -i '/exec-once = waybar & swaync & hyprpaper/a\
+exec-once = swww-daemon\
+exec-once = sleep 1 && swww img ~/.config/backgrounds/wallpaper_1.gif' ~/.config/hypr/hyprland.conf
+    else
+        sed -i '/exec-once = waybar & swaync & hyprpaper/a\
+exec-once = swww-daemon\
+exec-once = sleep 1 && swww img ~/.config/backgrounds/wallpaper_2.gif' ~/.config/hypr/hyprland.conf
+    fi
+elif [ "$wallpaper_manager" -eq "2" ]; then
+    if [ "$wallpaper_file" -eq "1" ]; then
+        echo "preload = ~/.config/backgrounds/wallpaper_1.jpg" >> ~/.config/hypr/hyprpaper.conf
+        echo "wallpaper = , ~/.config/backgrounds/wallpaper_1.jpg" >> ~/.config/hypr/hyprpaper.conf
+    elif [ "$wallpaper_file" -eq "2" ]; then
+        echo "preload = ~/.config/backgrounds/wallpaper_2.png" >> ~/.config/hypr/hyprpaper.conf
+        echo "wallpaper = , ~/.config/backgrounds/wallpaper_2.png" >> ~/.config/hypr/hyprpaper.conf
+    else
+        echo "preload = ~/.config/backgrounds/wallpaper_3.jpg" >> ~/.config/hypr/hyprpaper.conf
+        echo "wallpaper = , ~/.config/backgrounds/wallpaper_3.jpg" >> ~/.config/hypr/hyprpaper.conf
+    fi
+fi
+
+mkdir -p ~/.config/waybar
+cp -r $path/config/waybar/* ~/.config/waybar/
+cp -r $path/lib/* ~/.config/waybar/
+
+mkdir -p ~/.config/wofi
+cp -r $path/config/wofi/* ~/.config/wofi/
+
+# Ly
+echo -e "\n${greenColour}[+]${endColour} Enabling ly display manager..."
+sudo systemctl enable ly.service

@@ -134,12 +134,12 @@
     },
     "custom/ip": {
       "format": "󰈀  {}",
-      "exec": "/home/c4rnage/.config/waybar/scripts/showIP.sh",
+      "exec": "/home/c4rnage/.config/waybar/scripts/ethernet_status.sh",
       "interval": 5
     },
     "custom/vpn": {
       "format": "󰆧  {}",
-      "exec": "/home/c4rnage/.config/waybar/scripts/showVPN.sh",
+      "exec": "/home/c4rnage/.config/waybar/scripts/vpn_status.sh",
       "interval": 5
     },
     "battery": {

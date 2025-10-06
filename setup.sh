@@ -60,7 +60,7 @@ sleep 1
 echo -e "\n${greenColour}[+]${endColour} Accessing to user ${purpleColour}$user${endColour} and ${purpleColour}root${endColour} for installation...."
 sleep 1
 
-printf "\n${yellowColour}[!]${endColour} This requires a ${redColour}fresh Linux environment${endColour}. Are you sure to continue? (y/n): " 
+printf "\n${yellowColour}[!]${endColour} This requires a ${redColour}fresh Linux environment${endColour} and ${redColour}AUR packages.${endColour} Are you sure to continue? (y/n): " 
 read option
 
 if [ "$option" == "n" ]; then
