@@ -1,4 +1,4 @@
-# 🔥 AutoHyprland by varfmx21
+# AutoHyprland
 
 <div align="center">
 
