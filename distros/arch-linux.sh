@@ -3,24 +3,19 @@
 #-----Variables-----#
 user=$(whoami)
 path="$(pwd)"
-pathRepos="$HOME/Desktop/$user/repos"
 
 #-----Colours-----#
 greenColour="\e[0;32m\033[1m"
 endColour="\033[0m\e[0m"
 redColour="\e[0;31m\033[1m"
-blueColour="\e[0;34m\033[1m"
 yellowColour="\e[0;33m\033[1m"
-purpleColour="\e[0;35m\033[1m"
-turquoiseColour="\e[0;36m\033[1m"
-grayColour="\e[0;37m\033[1m"
 
 # Options for system
 printf "\n${yellowColour}[¿?]${endColour} Which wallpaper manager do you choose? GIFs or static (swww=1, hyprpaper=2): " 
 read wallpaper_manager
 if [ "$wallpaper_manager" -eq "1" ]; then
     printf "\n${yellowColour}[¿?]${endColour} Which wallpaper you choose? (1, 2): "
-    read wallpaper_file
+    read wallpaper_filef
 elif [ "$wallpaper_manager" -eq "2" ]; then
     printf "\n${yellowColour}[¿?]${endColour} Which wallpaper you choose? (1, 2, 3): "
     read wallpaper_file
@@ -32,7 +27,7 @@ fi
 # System Upgrade
 echo -e "\n${greenColour}[+]${endColour} First, we need to upgrade the system"
 sleep 1
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 
 # Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
@@ -60,9 +55,7 @@ fi
 echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for $user..."
 sleep 1
 mkdir -p ~/.config/kitty
-cd ~/.config/kitty
-cp "$path/config/kitty/kitty.conf" .
-cp "$path/config/kitty/color.ini" .
+cp -r $path/config/kitty/* ~/.config/kitty
 echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for root..."
 sudo mkdir -p /root/.config/kitty
 sudo cp -r /home/$user/.config/kitty/* /root/.config/kitty/
