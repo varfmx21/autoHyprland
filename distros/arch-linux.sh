@@ -15,7 +15,7 @@ printf "\n${yellowColour}[¿?]${endColour} Which wallpaper manager do you choose
 read wallpaper_manager
 if [ "$wallpaper_manager" -eq "1" ]; then
     printf "\n${yellowColour}[¿?]${endColour} Which wallpaper you choose? (1, 2): "
-    read wallpaper_filef
+    read wallpaper_file
 elif [ "$wallpaper_manager" -eq "2" ]; then
     printf "\n${yellowColour}[¿?]${endColour} Which wallpaper you choose? (1, 2, 3): "
     read wallpaper_file
@@ -32,9 +32,9 @@ sudo pacman -Syu --noconfirm
 # Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
 if [ $wallpaper_manager == 1 ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch
 elif [ $wallpaper_manager == 2 ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch
 fi
 
 # Hack Nerd Font
@@ -59,14 +59,13 @@ cp -r $path/config/kitty/* ~/.config/kitty
 echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for root..."
 sudo mkdir -p /root/.config/kitty
 sudo cp -r /home/$user/.config/kitty/* /root/.config/kitty/
-echo -e "\n ${greenColour}[+]${endColour} Configuration installed successfully"
+echo -e "\n ${greenColour}[+]${endColour} Configuration of kitty installed successfully"
 
 # ZSH
 echo -e "\n${greenColour}[+]${endColour} Configurating ZSH configuration..."
 sudo usermod --shell /usr/bin/zsh "$user"
 sudo usermod --shell /usr/bin/zsh root
 
-cd ~/
 mkdir -p ~/powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k/
 cp $path/config/zsh/.p10k.zsh ~/
@@ -84,6 +83,7 @@ if [ $? -eq 0 ]; then
 else
     echo -e "\n ${redColour}[!]${endColour} Failed to download sudo zsh plugin"
 fi
+echo -e "\n ${greenColour}[+]${endColour} Configuration of zsh installed successfully"
 
 # Hyprland
 echo -e "\n${greenColour}[+]${endColour} Configurating hyprland..."
@@ -94,8 +94,8 @@ cp -r $path/config/hypr/* ~/.config/hypr/
 mkdir -p ~/.config/backgrounds
 cp $path/wallpapers/* ~/.config/backgrounds
 
-if [ "$wallpaper_manager" -eq "1" ]; then
-    if [ "$wallpaper_file" -eq "1" ]; then
+if [ "$wallpaper_manager" == "1" ]; then
+    if [ "$wallpaper_file" == "1" ]; then
         sed -i '/exec-once = waybar & swaync & hyprpaper/a\
 exec-once = swww-daemon\
 exec-once = sleep 1 && swww img ~/.config/backgrounds/wallpaper_1.gif' ~/.config/hypr/hyprland.conf
@@ -104,33 +104,37 @@ exec-once = sleep 1 && swww img ~/.config/backgrounds/wallpaper_1.gif' ~/.config
 exec-once = swww-daemon\
 exec-once = sleep 1 && swww img ~/.config/backgrounds/wallpaper_2.gif' ~/.config/hypr/hyprland.conf
     fi
-elif [ "$wallpaper_manager" -eq "2" ]; then
-    if [ "$wallpaper_file" -eq "1" ]; then
-        echo "preload = ~/.config/backgrounds/wallpaper_1.jpg" >> ~/.config/hypr/hyprpaper.conf
+elif [ "$wallpaper_manager" == "2" ]; then
+    if [ "$wallpaper_file" == "1" ]; then
+        echo "preload = ~/.config/backgrounds/wallpaper_1.jpg" > ~/.config/hypr/hyprpaper.conf
         echo "wallpaper = , ~/.config/backgrounds/wallpaper_1.jpg" >> ~/.config/hypr/hyprpaper.conf
-    elif [ "$wallpaper_file" -eq "2" ]; then
-        echo "preload = ~/.config/backgrounds/wallpaper_2.png" >> ~/.config/hypr/hyprpaper.conf
+    elif [ "$wallpaper_file" == "2" ]; then
+        echo "preload = ~/.config/backgrounds/wallpaper_2.png" > ~/.config/hypr/hyprpaper.conf
         echo "wallpaper = , ~/.config/backgrounds/wallpaper_2.png" >> ~/.config/hypr/hyprpaper.conf
     else
-        echo "preload = ~/.config/backgrounds/wallpaper_3.jpg" >> ~/.config/hypr/hyprpaper.conf
+        echo "preload = ~/.config/backgrounds/wallpaper_3.jpg" > ~/.config/hypr/hyprpaper.conf
         echo "wallpaper = , ~/.config/backgrounds/wallpaper_3.jpg" >> ~/.config/hypr/hyprpaper.conf
     fi
 fi
 
 mkdir -p ~/.config/waybar
+mkdir -p ~/.config/waybar/scripts
 cp -r $path/config/waybar/* ~/.config/waybar/
-cp -r $path/lib/* ~/.config/waybar/
+cp -r $path/lib/* ~/.config/waybar/scripts/
 
 mkdir -p ~/.config/wofi
 cp -r $path/config/wofi/* ~/.config/wofi/
+echo -e "\n ${greenColour}[+]${endColour} Configuration of hyprland installed successfully"
 
 # Ly
 echo -e "\n${greenColour}[+]${endColour} Enabling ly display manager..."
 sudo systemctl enable ly.service
 
 echo -e "\n${greenColour}[+]${endColour} Installation complete!"
-printf "\n${yellowColour}[]${endColour} You want to reboot now? (y/n): " 
+printf "\n${yellowColour}[¿?]${endColour} You want to reboot now? (y/n): " 
 read reboot
+
+echo -e "${yellowColour}Thanks for using this script!{endColour}"
 
 if [ "$reboot" == "y" ]; then
     sudo reboot now
