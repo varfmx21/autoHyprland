@@ -43,7 +43,7 @@ function repos() {
     sleep 1
     git clone https://aur.archlinux.org/paru-bin.git
     cd paru-bin
-    makepkg -si
+    makepkg -si --noconfirm
     echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}AUR installed in your ArchLinux${endColour}"
     sleep 2
 

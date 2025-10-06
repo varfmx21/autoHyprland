@@ -3,6 +3,7 @@
 #-----Variables-----#
 user=$(whoami)
 path="$(pwd)"
+pathRepos="$HOME/Desktop/$user/repos"
 
 #-----Colours-----#
 greenColour="\e[0;32m\033[1m"
@@ -36,11 +37,10 @@ sudo pacman -Syu
 # Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
 if [ $wallpaper_manager == 1 ]; then
-    sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl
 elif [ $wallpaper_manager == 2 ]; then
-    sudo pacman -S 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl
 fi
-paru -Sy brave-bin
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
@@ -81,8 +81,6 @@ cp $path/config/zsh/.zshrc ~/
 
 sudo mkdir -p /root/powerlevel10k
 sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k/
-cp $path/config/zsh/.p10k.zsh1 /root/
-sudo mv /root/.p10k.zsh-root /root/.p10k.zsh
 sudo ln -s -f /home/$user/.zshrc /root/.zshrc
 
 echo -e "\n${greenColour}[+]${endColour} Installing sudo zsh plugin..."
@@ -136,3 +134,13 @@ cp -r $path/config/wofi/* ~/.config/wofi/
 # Ly
 echo -e "\n${greenColour}[+]${endColour} Enabling ly display manager..."
 sudo systemctl enable ly.service
+
+echo -e "\n${greenColour}[+]${endColour} Installation complete!"
+printf "\n${yellowColour}[]${endColour} You want to reboot now? (y/n): " 
+read reboot
+
+if [ "$reboot" == "y" ]; then
+    sudo reboot now
+else
+    exit 0
+fi
