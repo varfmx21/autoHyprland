@@ -71,9 +71,9 @@ export LS_COLORS="rs=0:di=34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;
 function settarget(){
     ip_address=$1
     machine_name=$2
-    echo "$ip_address $machine_name" > /home/c4rnage/.config/bin/target
+    echo "$ip_address $machine_name" > ~/.config/bin/target
 }
 # Clear Victim Target
 function cleartarget(){
-	echo '' > /home/c4rnage/.config/bin/target
+	echo '' > ~/.config/bin/target
 }

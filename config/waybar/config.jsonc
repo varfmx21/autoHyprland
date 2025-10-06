@@ -118,7 +118,7 @@
     "custom/launcher": {
 	"format": "  ",
 	"tooltip": false,
-	"on-click": "/home/c4rnage/.config/waybar/scripts/showFastFetch.sh"
+	"on-click": "~/.config/waybar/scripts/showFastFetch.sh"
     },
     "custom/powermenu": {
 	"format": "⏻ ",
@@ -130,16 +130,16 @@
 	"exec": "",
 	"interval": 1,
 	"tooltip": false,
-	"on-click": "/home/tdm/.config/waybar/scripts/ibus.sh &"
+	"on-click": "~/.config/waybar/scripts/ibus.sh &"
     },
     "custom/ip": {
       "format": "󰈀  {}",
-      "exec": "/home/c4rnage/.config/waybar/scripts/showIP.sh",
+      "exec": "~/.config/waybar/scripts/ethernet_status.sh",
       "interval": 5
     },
     "custom/vpn": {
       "format": "󰆧  {}",
-      "exec": "/home/c4rnage/.config/waybar/scripts/showVPN.sh",
+      "exec": "~/.config/waybar/scripts/vpn_status.sh",
       "interval": 5
     },
     "battery": {
