@@ -29,8 +29,8 @@ read install_aur
 if [ "$install_aur" == "y" ]; then
     if ! command -v paru &>/dev/null; then
         echo -e "${yellowColour}[!]${endColour} Paru not found, installing..."
-        chmod +x $path/repositories.sh
-        $path/repositories.sh
+        chmod +x "$path/repositories.sh"
+        "$path/repositories.sh"
     fi
 fi
 
@@ -41,9 +41,9 @@ sudo pacman -Syu --noconfirm
 
 # Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
-if [ $wallpaper_manager == 1 ]; then
+if [ "$wallpaper_manager" == "1" ]; then
     sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse
-elif [ $wallpaper_manager == 2 ]; then
+elif [ "$wallpaper_manager" == "2" ]; then
     sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse
 fi
 
@@ -69,10 +69,10 @@ fi
 echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for $user..."
 sleep 1
 mkdir -p ~/.config/kitty
-cp -r $path/config/kitty/* ~/.config/kitty
+cp -r "$path/config/kitty/"* ~/.config/kitty
 echo -e "\n${greenColour}[+]${endColour} Configurating kitty terminal for root..."
 sudo mkdir -p /root/.config/kitty
-sudo cp -r /home/$user/.config/kitty/* /root/.config/kitty/
+sudo cp -r /home/"$user"/.config/kitty/* /root/.config/kitty/
 echo -e "\n ${greenColour}[+]${endColour} Configuration of kitty installed successfully"
 
 # ZSH
@@ -82,14 +82,14 @@ sudo usermod --shell /usr/bin/zsh root
 
 mkdir -p ~/powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k/
-cp $path/config/zsh/.p10k.zsh ~/
-cp $path/config/zsh/.zshrc ~/
+cp "$path/config/zsh/.p10k.zsh" ~/
+cp "$path/config/zsh/.zshrc" ~/
 
 sudo mkdir -p /root/powerlevel10k
 sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k/
-sudo ln -s -f /home/$user/.zshrc /root/.zshrc
-cp $path/config/zsh/.p10k_root.zsh /root/
-mv /root/.p10k_root.zsh /root/.p10k.zsh
+sudo ln -s -f /home/"$user"/.zshrc /root/.zshrc
+sudo cp "$path/config/zsh/.p10k_root.zsh" /root/
+sudo mv /root/.p10k_root.zsh /root/.p10k.zsh
 
 echo -e "\n${greenColour}[+]${endColour} Installing sudo zsh plugin..."
 sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo
@@ -105,10 +105,10 @@ echo -e "\n ${greenColour}[+]${endColour} Configuration of zsh installed success
 echo -e "\n${greenColour}[+]${endColour} Configurating hyprland..."
 
 mkdir -p ~/.config/hypr
-cp -r $path/config/hypr/* ~/.config/hypr/
+cp -r "$path/config/hypr/"* ~/.config/hypr/
 
 mkdir -p ~/.config/backgrounds
-cp $path/wallpapers/* ~/.config/backgrounds
+cp "$path/wallpapers/"* ~/.config/backgrounds
 
 if [ "$wallpaper_manager" == "1" ]; then
     if [ "$wallpaper_file" == "1" ]; then
@@ -135,8 +135,8 @@ fi
 
 mkdir -p ~/.config/waybar
 mkdir -p ~/.config/waybar/scripts
-cp -r $path/config/waybar/* ~/.config/waybar/
-cp -r $path/lib/* ~/.config/waybar/scripts/
+cp -r "$path/config/waybar/"* ~/.config/waybar/
+cp -r "$path/lib/"* ~/.config/waybar/scripts/
 
 chmod +x ~/.config/waybar/scripts/ethernet_status.sh
 chmod +x ~/.config/waybar/scripts/showFastFetch.sh
@@ -144,7 +144,7 @@ chmod +x ~/.config/waybar/scripts/target_to_hack.sh
 chmod +x ~/.config/waybar/scripts/vpn_status.sh
 
 mkdir -p ~/.config/wofi
-cp -r $path/config/wofi/* ~/.config/wofi/
+cp -r "$path/config/wofi/"* ~/.config/wofi/
 echo -e "\n ${greenColour}[+]${endColour} Configuration of hyprland installed successfully"
 
 # Ly
@@ -155,7 +155,7 @@ echo -e "\n${greenColour}[+]${endColour} Installation complete!"
 printf "\n${yellowColour}[¿?]${endColour} You want to reboot now? (y/n): " 
 read reboot
 
-echo -e "${yellowColour}Thanks for using this script!{endColour}"
+echo -e "${yellowColour}Thanks for using this script!${endColour}"
 
 if [ "$reboot" == "y" ]; then
     sudo reboot now

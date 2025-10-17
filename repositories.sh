@@ -37,11 +37,11 @@ function banner() {
 }
 
 function AUR() {
-    mkdir $pathRepos/paru-bin
-    cd $pathRepos/paru-bin
+    cd "$pathRepos"
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in $pathRepos${endColour}"
     sleep 1
     git clone https://aur.archlinux.org/paru-bin.git
+    cd paru-bin
     makepkg -si --noconfirm
     echo -e "\n\n${greenColour}[+]${endColour} ${grayColour}AUR installed in your ArchLinux${endColour}"
     sleep 1
@@ -50,8 +50,8 @@ function AUR() {
 function black_arch() {
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Installing BlackArch repos in Pacman...${endColour}"
     sleep 1
-    mkdir -p $pathRepos/blackarch
-    cd $pathRepos/blackarch
+    mkdir -p "$pathRepos/blackarch"
+    cd "$pathRepos/blackarch"
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in $pathRepos/blackarch${endColour}"
     sleep 1
     curl -O https://blackarch.org/strap.sh
@@ -78,10 +78,10 @@ trap ctrl_c INT
     sudo pacman --noconfirm -Syu
     sudo pacman --noconfirm -S base-devel curl
 
-    if [ ! -d $pathRepos ]; then
+    if [ ! -d "$pathRepos" ]; then
         echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour} Directory $pathRepos does not exist, creating...${endColour}"
         sleep 1
-        mkdir -p $pathRepos
+        mkdir -p "$pathRepos"
         echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Directory created${endColour}"
         sleep 1
     fi
