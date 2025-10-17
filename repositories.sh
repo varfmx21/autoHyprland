@@ -37,6 +37,7 @@ function banner() {
 }
 
 function AUR() {
+    mkdir $pathRepos/paru-bin
     cd $pathRepos/paru-bin
     echo -e "\n\n${purpleColour}[+]${endColour} ${grayColour}Downloading repo in $pathRepos${endColour}"
     sleep 1
