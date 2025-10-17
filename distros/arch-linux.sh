@@ -29,8 +29,8 @@ read install_aur
 if [ "$install_aur" == "y" ]; then
     if ! command -v paru &>/dev/null; then
         echo -e "${yellowColour}[!]${endColour} Paru not found, installing..."
-        chmod +x ./$path/setup.sh
-        ./$path/setup.sh
+        chmod +x $path/repositories.sh
+        $path/repositories.sh
     fi
 fi
 
