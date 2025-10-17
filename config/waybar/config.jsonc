@@ -6,19 +6,9 @@
      "margin-right": 10,
     "height": 30,
     "spacing": 0,
-    "modules-left": ["custom/launcher","cpu","memory", "custom/ip", "custom/vpn"],
-    "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["custom/ibus","network","pulseaudio","backlight","clock","battery","custom/powermenu"],
-
-"hyprland/window": {
-    "format": "👉 {}",
-    "rewrite": {
-        "(.*) - Mozilla Firefox": "🌎 $1",
-        "(.*) - fish": "> [$1]"
-    },
-    "separate-outputs": true
-    
-},
+    "modules-left": ["custom/launcher", "hyprland/workspaces","cpu","memory", "custom/ip", "custom/vpn"],
+    "modules-center": [],
+    "modules-right": ["custom/target", "network","pulseaudio","backlight","clock","battery","custom/powermenu"],
 
 "hyprland/workspaces": {
 	"active-only": false,
@@ -29,25 +19,13 @@
 		"1": [],
 		"2": [],
 		"3": [],
-		"4": [],
-    "5": [],
-    "6": [],
-    "7": [],
-    "8": [],
-    "9": [],
-    "0": []
+		"4": []
 	},
 	"format-icons": {
     		"1": "",
     		"2": "",
     		"3": "",
     		"4": "",
-        "5": "",
-        "6": "",
-        "7": "",
-    		"8": "",
-    		"9": "",
-        "0": "",
 		"default": "",
 		"active": "󰮯 ",
 		"urgent": "󱓻"
@@ -63,14 +41,10 @@
     "format": "   {}% ",
     "max-length": 10
     },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-    },
     "clock": {
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "format-alt": "  {:%a, %d %b %Y} ",
-	"format": " 󰥔  {:%H:%M} ",
+	    "format": " 󰥔  {:%H:%M} ",
         "calendar": {
                     "weeks-pos"     : "none",
                     "on-scroll"     : 1,
@@ -93,16 +67,6 @@
   "tooltip-format-disconnected": "No Internet Connection",
   "nospacing": 1
     },
-    "bluetooth": {
-	      "format": "󰂯 {status}",
-	      "format-connected": "",
-	      "format-connected-battery": "",
-	      // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-	      "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-	      "tooltip-format-connected": "{num_connections} connected\n\n{device_enumerate}",
-	      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-	      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
-  },
     "pulseaudio": {
         "format": "{icon}",
 	"nospacing": 1,
@@ -123,14 +87,7 @@
     "custom/powermenu": {
 	"format": "⏻ ",
 	"tooltip": false,
-	"on-click": "~/.config/rofi/powermenu/type-2/powermenu.sh &"
-    },
-    "custom/ibus": {
-	"format": "{}",
-	"exec": "",
-	"interval": 1,
-	"tooltip": false,
-	"on-click": "~/.config/waybar/scripts/ibus.sh &"
+	"on-click": "wlogout"
     },
     "custom/ip": {
       "format": "󰈀  {}",
@@ -140,6 +97,11 @@
     "custom/vpn": {
       "format": "󰆧  {}",
       "exec": "~/.config/waybar/scripts/vpn_status.sh",
+      "interval": 5
+    },
+    "custom/target": {
+      "format": "{}",
+      "exec": "~/.config/waybar/scripts/target_to_hack.sh",
       "interval": 5
     },
     "battery": {

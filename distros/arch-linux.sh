@@ -24,6 +24,16 @@ else
     exit 1
 fi
 
+printf "\n${yellowColour}[¿?]${endColour} You want to install AUR packages? (y/n): " 
+read install_aur
+if [ "$install_aur" == "y" ]; then
+    if ! command -v paru &>/dev/null; then
+        echo -e "${yellowColour}[!]${endColour} Paru not found, installing..."
+        chmod +x ./$path/setup.sh
+        ./$path/setup.sh
+    fi
+fi
+
 # System Upgrade
 echo -e "\n${greenColour}[+]${endColour} First, we need to upgrade the system"
 sleep 1
@@ -32,12 +42,14 @@ sudo pacman -Syu --noconfirm
 # Packages install
 echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
 if [ $wallpaper_manager == 1 ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse
 elif [ $wallpaper_manager == 2 ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc
+    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse
 fi
 
-paru -S --noconfirm brave-bin
+if [ "$install_aur" == "y" ]; then
+    paru -S --noconfirm brave-bin
+fi
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
@@ -76,6 +88,8 @@ cp $path/config/zsh/.zshrc ~/
 sudo mkdir -p /root/powerlevel10k
 sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k/
 sudo ln -s -f /home/$user/.zshrc /root/.zshrc
+cp $path/config/zsh/.p10k_root.zsh /root/
+mv /root/.p10k_root.zsh /root/.p10k.zsh
 
 echo -e "\n${greenColour}[+]${endColour} Installing sudo zsh plugin..."
 sudo mkdir -p /usr/share/zsh/plugins/zsh-sudo
@@ -126,8 +140,8 @@ cp -r $path/lib/* ~/.config/waybar/scripts/
 
 chmod +x ~/.config/waybar/scripts/ethernet_status.sh
 chmod +x ~/.config/waybar/scripts/showFastFetch.sh
-chmod +x ~/.config/waybar/scripts/lib/target_to_hack.sh
-chmod +x ~/.config/waybar/scripts/lib/target_to_hack.sh
+chmod +x ~/.config/waybar/scripts/target_to_hack.sh
+chmod +x ~/.config/waybar/scripts/vpn_status.sh
 
 mkdir -p ~/.config/wofi
 cp -r $path/config/wofi/* ~/.config/wofi/
