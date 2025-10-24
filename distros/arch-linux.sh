@@ -9,6 +9,7 @@ greenColour="\e[0;32m\033[1m"
 endColour="\033[0m\e[0m"
 redColour="\e[0;31m\033[1m"
 yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
 
 # Options for system
 printf "\n${yellowColour}[¿?]${endColour} Which wallpaper manager do you choose? GIFs or static (swww=1, hyprpaper=2): " 
@@ -40,16 +41,25 @@ sleep 1
 sudo pacman -Syu --noconfirm
 
 # Packages install
-echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
 if [ "$wallpaper_manager" == "1" ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse
+  packages=(7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse)
 elif [ "$wallpaper_manager" == "2" ]; then
-    sudo pacman -S --noconfirm 7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse
+  packages=(7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse)
 fi
 
 if [ "$install_aur" == "y" ]; then
     paru -S --noconfirm brave-bin
 fi
+
+echo -e "\n${greenColour}[+]${endColour} Installing packages for the environment"
+for pkg in "${packages[@]}"; do
+  echo -e "\n\t${greenColour}[+]${endColour} Installing ${purpleColour}$pkg...${endColour}"
+  if ! sudo pacman -S --noconfirm --needed "$pkg"; then
+    echo -e "\n\t${redColour}[!] Warning, error installing \"$pkg\" - it will be omitted.${endColour}"
+  fi
+done
+
+echo -e "\n${greenColour}[+]${endColour} Installation of packages complete"
 
 # Hack Nerd Font
 echo -e "\n${greenColour}[+]${endColour} Installing Hack Nerd Font..."
