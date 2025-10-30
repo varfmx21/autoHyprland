@@ -18,9 +18,9 @@
 ## 📖 What is autoHyprland?
 
 **autoHyprland** is an automated installation script that sets up a complete Hyprland window manager environment on:
-- ✅ **Arch Linux** (Fully tested)
-- ✅ **Kali Linux** (Upcoming...)
-- ✅ **Parrot OS** (Upcoming...)
+- ✅ **Arch Linux** (Tested)
+- X **Kali Linux** (Upcoming...)
+- X **Parrot OS** (Upcoming...)
 - ⚠️ Other Debian-based distributions may work but are not officially supported
 
 This environment is tailored to my personal preferences and workflow, but feel free to use it as a solid foundation to build your own customized setup!
