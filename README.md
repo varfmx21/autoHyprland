@@ -12,6 +12,8 @@
 
 **🔓 We are DedSec. We are everywhere. We are watching.**
 
+![Previwe](./lib/2025-10-30-123727_hyprshot.png)
+
 </div>
 
 ---
