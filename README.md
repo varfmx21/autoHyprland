@@ -8,7 +8,8 @@
 [![Arch Linux](https://img.shields.io/badge/Arch%20Linux-Supported-1793D1?logo=arch-linux)](https://archlinux.org/)
 [![DedSec](https://img.shields.io/badge/☠️_DedSec-Hacker_Approved-00FF41)](https://github.com/varfmx21)
 
-*An opinionated Hyprland configuration designed for cybersecurity professionals and enthusiasts*
+*An opinionated Hyprland configuration designed for cybersecurity professionals and enthusiasts with style of [varfmx21](https://github.com/varfmx21) and [s4vitar](https://github.com/s4vitar)*
+
 **🔓 We are DedSec. We are everywhere. We are watching.**
 
 </div>
