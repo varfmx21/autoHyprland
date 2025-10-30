@@ -255,7 +255,7 @@ systemctl --user enable --now pipewire pipewire-pulse
 
 <div align="center">
 
-**Made with by [varfmx21](https://github.com/varfmx21)**
+**by [varfmx21](https://github.com/varfmx21)**
 
 ⭐ Star this repo if you find it useful!
 
