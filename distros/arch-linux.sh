@@ -42,9 +42,9 @@ sudo pacman -Syu --noconfirm
 
 # Packages install
 if [ "$wallpaper_manager" == "1" ]; then
-  packages=(7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse)
+  packages=(7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock swww ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse wireplumber alsamixer)
 elif [ "$wallpaper_manager" == "2" ]; then
-  packages=(7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse)
+  packages=(7zip kitty zsh zsh-autosuggestions zsh-syntax-highlighting bat lsd fzf hyprland wofi waybar thunar hyprshot swaync hyprlock hyprpaper ly spotify-launcher brightnessctl fastfetch vlc rofi sof-firmware pipewire pipewire-pulse wireplumber alsamixer)
 fi
 
 if [ "$install_aur" == "y" ]; then
